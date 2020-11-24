@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="https://github.com/marshallcb/ustring/raw/main/meta/ustring.png" alt="ustring" width="60" />
+  <img src="https://github.com/marshallcb/uline/raw/main/meta/uline.png" alt="uline" width="60" />
 </div>
 
-<h1 align="center">µstring</h1>
+<h1 align="center">µline</h1>
 
 <h3 align="center">Generate valid HTML and SVG strings with tagged template literals</h3>
 

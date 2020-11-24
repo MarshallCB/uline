@@ -1,8 +1,8 @@
 {
   "version": "0.0.0",
-  "name": "ustring",
-  "umd:name": "ustring",
-  "repository": "MarshallCB/ustring",
+  "name": "uline",
+  "umd:name": "uline",
+  "repository": "MarshallCB/uline",
   "description": "Generate valid HTML and SVG strings with tagged template literals",
   "keywords": [],
   "license": "MIT",
