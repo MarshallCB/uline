@@ -35,7 +35,7 @@ const getValue = value => {
       switch (true) {
         case value instanceof Array:
           return value.map(getValue).join('');
-        case value && value.is_ustring:
+        case value && value.is_uline:
           return value.toString()
       }
   }
@@ -68,7 +68,7 @@ const parse = (template, expectedLength, svg) => {
             let result = pre;
             if (typeof value === 'string')
               result += attribute(name, quote, value);
-            if (typeof value === 'object' && value.is_ustring)
+            if (typeof value === 'object' && value.is_uline)
               result += attribute(name, quote, value.toString());
             return result;
           });
@@ -106,7 +106,7 @@ const parse = (template, expectedLength, svg) => {
             // or as instance of JS
             switch (typeof value) {
               case 'object':
-                if (value.is_ustring) {
+                if (value.is_uline) {
                   result += attribute(name, quote, value.toString());
                   break;
                 }
@@ -165,10 +165,10 @@ const {isArray} = Array;
 
 const cache = umap__default['default'](new WeakMap);
 
-class UString extends String {
+class ULine extends String {
   constructor(content) {
     super(String(content));
-    this.is_ustring = true;
+    this.is_uline = true;
   }
 }
 const content = (template, values, svg) => {
@@ -193,23 +193,19 @@ const uhtmlParity = fn => {
   return fn;
 };
 
-const css = (template, ...values) => new UString(
+const css = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
-const js = (template, ...values) => new UString(
+const raw = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
-const raw = (template, ...values) => new UString(
-  stringify(template, values)
-);
-
-const html = uhtmlParity((template, ...values) => new UString(
+const html = uhtmlParity((template, ...values) => new ULine(
   content(template, values, false)
 ));
 
-const svg = uhtmlParity((template, ...values) => new UString(
+const svg = uhtmlParity((template, ...values) => new ULine(
   content(template, values, true)
 ));
 
@@ -223,6 +219,5 @@ function update(value, i) {
 
 exports.css = css;
 exports.html = html;
-exports.js = js;
 exports.raw = raw;
 exports.svg = svg;

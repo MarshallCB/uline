@@ -5,10 +5,10 @@ const {isArray} = Array;
 
 const cache = umap(new WeakMap);
 
-class UString extends String {
+class ULine extends String {
   constructor(content) {
     super(String(content));
-    this.is_ustring = true;
+    this.is_uline = true;
   }
 };
 
@@ -34,23 +34,19 @@ const uhtmlParity = fn => {
   return fn;
 };
 
-export const css = (template, ...values) => new UString(
+export const css = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
-export const js = (template, ...values) => new UString(
+export const raw = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
-export const raw = (template, ...values) => new UString(
-  stringify(template, values)
-);
-
-export const html = uhtmlParity((template, ...values) => new UString(
+export const html = uhtmlParity((template, ...values) => new ULine(
   content(template, values, false)
 ));
 
-export const svg = uhtmlParity((template, ...values) => new UString(
+export const svg = uhtmlParity((template, ...values) => new ULine(
   content(template, values, true)
 ));
 

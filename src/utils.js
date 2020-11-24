@@ -24,7 +24,7 @@ const getValue = value => {
       switch (true) {
         case value instanceof Array:
           return value.map(getValue).join('');
-        case value && value.is_ustring:
+        case value && value.is_uline:
           return value.toString()
       }
   }
@@ -57,7 +57,7 @@ export const parse = (template, expectedLength, svg) => {
             let result = pre;
             if (typeof value === 'string')
               result += attribute(name, quote, value);
-            if (typeof value === 'object' && value.is_ustring)
+            if (typeof value === 'object' && value.is_uline)
               result += attribute(name, quote, value.toString());
             return result;
           });
@@ -95,7 +95,7 @@ export const parse = (template, expectedLength, svg) => {
             // or as instance of JS
             switch (typeof value) {
               case 'object':
-                if (value.is_ustring) {
+                if (value.is_uline) {
                   result += attribute(name, quote, value.toString());
                   break;
                 }
