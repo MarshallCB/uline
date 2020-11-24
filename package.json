@@ -1,8 +1,8 @@
 {
   "version": "0.0.0",
-  "name": "todo",
-  "repository": "TODO_USERNAME/TODO_REPO",
-  "description": "TODO_MODULE_DESCRIPTION",
+  "name": "ustring",
+  "repository": "MarshallCB/ustring",
+  "description": "Generate valid HTML and SVG strings with tagged template literals",
   "keywords": [],
   "license": "MIT",
   "author": {
