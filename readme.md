@@ -11,7 +11,7 @@
 ## References
 
 - Started as a fork of [`µcontent`](https://github.com/WebReflection/ucontent)
-  - `µcontent` includes built-in compression for CSS/SVG/HTML, which works great for certain cases, but makes the bundle size much larger
+  - `µcontent` includes built-in compression for CSS/SVG/HTML, which works great for certain cases, but makes the bundle size much larger and only works server-side
 - Built to pair with [`µhtml`](https://github.com/WebReflection/uhtml) via [`componit`](https://github.com/MarshallCB/componit)
 
 ## License

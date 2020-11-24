@@ -1,5 +1,4 @@
-import umap from 'umap';
-import { escape } from 'html-escaper';
+import {escape} from 'html-escaper';
 import uhyphen from 'uhyphen';
 import instrument from 'uparser';
 
@@ -32,7 +31,7 @@ const getValue = value => {
   return value == null ? '' : escape(String(value));
 };
 
-const parse = (template, expectedLength, svg) => {
+export const parse = (template, expectedLength, svg) => {
   const text = instrument(template, prefix, svg);
   const html = text;
   const updates = [];
@@ -150,65 +149,3 @@ function aria(key) {
 function data(key) {
   return ` data-${uhyphen(key)}="${escape(this[key])}"`;
 }
-
-const {isArray} = Array;
-
-const cache = umap(new WeakMap);
-
-class UString extends String {
-  constructor(content) {
-    super(String(content));
-    this.is_ustring = true;
-  }
-}
-const content = (template, values, svg) => {
-  const {length} = values;
-  const updates = cache.get(template) ||
-                  cache.set(template, parse(template, length, svg));
-  return length ? values.map(update, updates).join('') : updates[0]();
-};
-
-const join = (template, values) => (
-  template[0] + values.map(chunks, template).join('')
-);
-
-const stringify = (template, values) =>
-                    isArray(template) ? join(template, values) : template;
-
-const uhtmlParity = fn => {
-  // both `.node` and `.for` are for feature parity with uhtml
-  // but don't do anything different from regular function call
-  fn.node = fn;
-  fn.for = () => fn;
-  return fn;
-};
-
-const css = (template, ...values) => new UString(
-  stringify(template, values)
-);
-
-const js = (template, ...values) => new UString(
-  stringify(template, values)
-);
-
-const raw = (template, ...values) => new UString(
-  stringify(template, values)
-);
-
-const html = uhtmlParity((template, ...values) => new UString(
-  content(template, values, false)
-));
-
-const svg = uhtmlParity((template, ...values) => new UString(
-  content(template, values, true)
-));
-
-function chunks(value, i) {
-  return value + this[i + 1];
-}
-
-function update(value, i) {
-  return this[i](value);
-}
-
-export { css, html, js, raw, svg };

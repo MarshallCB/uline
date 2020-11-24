@@ -1,10 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
-// import { terser } from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser';
 
-export default {
-	input: 'src/index.ts',
+export default [{
+	input: 'src/index.js',
 	output: [{
 		format: 'esm',
 		file: pkg.module,
@@ -20,9 +19,36 @@ export default {
 		...Object.keys(pkg.peerDependencies || {}),
 	],
 	plugins: [
-		resolve(),
-		typescript({
-			useTsconfigDeclarationDir: true
-		})
+		resolve()
 	]
-}
+}, {
+	input: 'src/index.js',
+	output: [{
+		format: 'esm',
+		file: "es.js",
+		sourcemap: false,
+		plugins: [
+			terser()
+		]
+	},{
+		name: pkg['umd:name'] || pkg.name,
+		format: 'umd',
+		file: pkg.unpkg,
+		sourcemap: false,
+		plugins: [
+			terser()
+		]
+	}, {
+		name: pkg['umd:name'] || pkg.name,
+		format: 'umd',
+		file: "min.js",
+		sourcemap: false,
+		plugins: [
+			terser()
+		]
+	}],
+	plugins: [
+		resolve(),
+		terser()
+	]
+}]

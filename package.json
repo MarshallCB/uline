@@ -1,6 +1,7 @@
 {
   "version": "0.0.0",
   "name": "ustring",
+  "umd:name": "ustring",
   "repository": "MarshallCB/ustring",
   "description": "Generate valid HTML and SVG strings with tagged template literals",
   "keywords": [],
@@ -10,6 +11,7 @@
     "email": "hey@m4r.sh",
     "url": "https://m4r.sh"
   },
+  "unpkg": "dist/index.min.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -30,14 +32,20 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "test": "uvu -r ts-node/register test"
+    "test": "uvu -r esm test"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^10.0.0",
+    "brotli-size": "^4.0.0",
+    "esm": "^3.2.25",
     "rollup": "^2.33.3",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.1.2",
+    "rollup-plugin-terser": "^7.0.2",
     "uvu": "^0.4.1"
+  },
+  "dependencies": {
+    "html-escaper": "^3.0.0",
+    "uhyphen": "^0.1.0",
+    "umap": "^1.0.2",
+    "uparser": "^0.2.1"
   }
 }
