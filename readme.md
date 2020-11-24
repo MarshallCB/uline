@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/marshallcb/node-module/raw/main/meta/ustring.png" alt="ustring" width="100" />
+  <img src="https://github.com/marshallcb/ustring/raw/main/meta/ustring.png" alt="ustring" width="100" />
 </div>
 
 <h1 align="center">µstring</h1>
