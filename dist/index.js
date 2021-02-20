@@ -68,7 +68,7 @@ const parse = (template, expectedLength, svg) => {
             let result = pre;
             if (typeof value === 'string')
               result += attribute(name, quote, value);
-            if (typeof value === 'object' && value.is_uline)
+            if (value && value.toString)
               result += attribute(name, quote, value.toString());
             return result;
           });
@@ -76,8 +76,6 @@ const parse = (template, expectedLength, svg) => {
         // setters as boolean attributes (.disabled .contentEditable)
         case name[0] === '.':
           const lower = name.slice(1).toLowerCase();
-          // TODO: if .is, use stringified handler to write a script tag and use id attr to associate the two
-          // TODO: if .it, convert to data-it=value
           updates.push(lower === 'dataset' ?
             (value => (pre + keys(value).map(data, value).join(''))) :
             (value => {
@@ -170,6 +168,9 @@ class ULine extends String {
     super(String(content));
     this.is_uline = true;
   }
+  min(){
+    return this; // TODO: make this compatible with ucontent
+  }
 }
 const content = (template, values, svg) => {
   const {length} = values;
@@ -193,10 +194,6 @@ const uhtmlParity = fn => {
   return fn;
 };
 
-const css = (template, ...values) => new ULine(
-  stringify(template, values)
-);
-
 const raw = (template, ...values) => new ULine(
   stringify(template, values)
 );
@@ -217,7 +214,6 @@ function update(value, i) {
   return this[i](value);
 }
 
-exports.css = css;
 exports.html = html;
 exports.raw = raw;
 exports.svg = svg;

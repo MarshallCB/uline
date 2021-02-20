@@ -57,7 +57,7 @@ export const parse = (template, expectedLength, svg) => {
             let result = pre;
             if (typeof value === 'string')
               result += attribute(name, quote, value);
-            if (typeof value === 'object' && value.is_uline)
+            if (value && value.toString)
               result += attribute(name, quote, value.toString());
             return result;
           });
@@ -65,8 +65,6 @@ export const parse = (template, expectedLength, svg) => {
         // setters as boolean attributes (.disabled .contentEditable)
         case name[0] === '.':
           const lower = name.slice(1).toLowerCase();
-          // TODO: if .is, use stringified handler to write a script tag and use id attr to associate the two
-          // TODO: if .it, convert to data-it=value
           updates.push(lower === 'dataset' ?
             (value => (pre + keys(value).map(data, value).join(''))) :
             (value => {

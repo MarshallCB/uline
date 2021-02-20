@@ -10,6 +10,9 @@ class ULine extends String {
     super(String(content));
     this.is_uline = true;
   }
+  min(){
+    return this; // TODO: make this compatible with ucontent
+  }
 };
 
 const content = (template, values, svg) => {
@@ -33,10 +36,6 @@ const uhtmlParity = fn => {
   fn.for = () => fn;
   return fn;
 };
-
-export const css = (template, ...values) => new ULine(
-  stringify(template, values)
-);
 
 export const raw = (template, ...values) => new ULine(
   stringify(template, values)
