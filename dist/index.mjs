@@ -188,6 +188,8 @@ const raw = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
+const css = raw;
+
 const html = uhtmlParity((template, ...values) => new ULine(
   content(template, values, false)
 ));
@@ -204,4 +206,4 @@ function update(value, i) {
   return this[i](value);
 }
 
-export { html, raw, svg };
+export { css, html, raw, svg };

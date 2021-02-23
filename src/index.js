@@ -41,6 +41,8 @@ export const raw = (template, ...values) => new ULine(
   stringify(template, values)
 );
 
+export const css = raw;
+
 export const html = uhtmlParity((template, ...values) => new ULine(
   content(template, values, false)
 ));
